@@ -1,4 +1,5 @@
 {
-  "param1": "one",
-  "param2": "two"
+  "param": "one",
+  "param3": "three",
+  "param4": "four"
 }
