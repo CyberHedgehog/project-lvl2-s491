@@ -7,6 +7,6 @@ test('Empty JSON', () => {
 });
 
 test('Not empty JSON', () => {
-  const diff = getDiff('/home/dmitriy/Documents/dobr/file1.json', '__tests__/__fixtures__/file2.json');
+  const diff = getDiff('__tests__/__fixtures__/file1.json', '__tests__/__fixtures__/file2.json');
   expect(JSON.parse(diff)).toEqual(JSON.parse(testJSON));
 });
