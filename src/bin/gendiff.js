@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import program from 'commander';
+import getDiff from '../utils/getDiff';
 
 program
   .description('Compares two configuration files and shows a difference.')
@@ -9,3 +10,13 @@ program
   .option('-f, --format [type]', 'Output format');
 
 program.parse(process.argv);
+const [path1, path2] = program.args;
+
+const run = () => {
+  if (!path1 || !path2) {
+    return 'No paths';
+  }
+  return getDiff(path1, path2);
+};
+
+run();
