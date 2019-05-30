@@ -1,3 +1,3 @@
-import getDiff from './dist/utils/getDiff';
+import getDiff from './src/utils/getDiff';
 
 export default getDiff;
