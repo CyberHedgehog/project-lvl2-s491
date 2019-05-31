@@ -1,12 +1,18 @@
 import getDiff from '../src/utils/getDiff';
+import parsers from '../src/utils/parsers';
 
-const testJSON = '{ "  param": "one", "+ param2": "two", "+ param3": "thre", "- param3": "three", "- param4": "four" }';
+const resultData = parsers('__tests__/__fixtures__/result.json');
 
 test('Empty JSON', () => {
-  expect(getDiff('__tests__/__fixtures__/empty.json', '__tests__/__fixtures__/empty2.json')).toBe('{}');
+  expect(getDiff('__tests__/__fixtures__/empty.json', '__tests__/__fixtures__/empty2.json')).toEqual({});
 });
 
-test('Not empty JSON', () => {
-  const diff = getDiff('__tests__/__fixtures__/file1.json', '__tests__/__fixtures__/file2.json');
-  expect(JSON.parse(diff)).toEqual(JSON.parse(testJSON));
+test('JSON test', () => {
+  const diff = getDiff('__tests__/__fixtures__/jsonBefore.json', '__tests__/__fixtures__/jsonAfter.json');
+  expect(diff).toEqual(resultData);
+});
+
+test('Yaml test', () => {
+  const diff = getDiff('__tests__/__fixtures__/ymlBefore.yml', '__tests__/__fixtures__/ymlAfter.yml');
+  expect(diff).toEqual(resultData);
 });

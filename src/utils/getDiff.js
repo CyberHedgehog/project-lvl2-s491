@@ -1,17 +1,17 @@
-import fs from 'fs';
 import _ from 'lodash';
+import parser from './parsers';
 
 const getDiff = (firstPath, secondPath) => {
-  const firstData = JSON.parse(fs.readFileSync(firstPath, 'utf-8'));
-  const secondData = JSON.parse(fs.readFileSync(secondPath, 'utf-8'));
+  const firstData = parser(firstPath);
+  const secondData = parser(secondPath);
   const allKeys = _.uniq(Object.keys(firstData).concat(Object.keys(secondData)));
   const result = allKeys.reduce((acc, key) => {
     const firstValue = firstData[key];
     const secondValue = secondData[key];
-    if (!firstValue) {
+    if (!_.has(firstData, key)) {
       return { ...acc, [`+ ${key}`]: secondValue };
     }
-    if (!secondValue) {
+    if (!_.has(secondData, key)) {
       return { ...acc, [`- ${key}`]: firstValue };
     }
     if (firstValue !== secondValue) {
@@ -19,7 +19,7 @@ const getDiff = (firstPath, secondPath) => {
     }
     return { ...acc, [`  ${key}`]: firstValue };
   }, {});
-  return JSON.stringify(result);
+  return result;
 };
 
 export default getDiff;

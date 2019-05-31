@@ -16,7 +16,8 @@ const run = () => {
   if (!path1 || !path2) {
     return 'No paths';
   }
-  return getDiff(path1, path2);
+  return JSON.stringify(getDiff(path1, path2), null, ' ');
 };
 
-run();
+const result = run();
+console.log(result);

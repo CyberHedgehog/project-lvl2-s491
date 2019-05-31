@@ -2,7 +2,7 @@
   "name": "gendiff-ch",
   "version": "1.0.0",
   "description": "hexlet project lvl 2",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "test": "jest",
     "build": "NODE_ENV=production babel src --out-dir dist --source-maps inline",
@@ -18,7 +18,9 @@
   "license": "ISC",
   "dependencies": {
     "commander": "^2.20.0",
-    "lodash": "^4.17.11"
+    "js-yaml": "^3.13.1",
+    "lodash": "^4.17.11",
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",

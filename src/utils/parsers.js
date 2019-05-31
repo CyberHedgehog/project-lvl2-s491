@@ -1,0 +1,16 @@
+import fs from 'fs';
+import yaml from 'js-yaml';
+import path from 'path';
+
+const yamlParser = data => yaml.safeLoad(data);
+
+const parsers = {
+  '.yml': yamlParser,
+  '.json': JSON.parse,
+};
+
+export default (filePath) => {
+  const data = fs.readFileSync(filePath, 'utf-8');
+  const fileExtnesion = path.extname(filePath);
+  return parsers[fileExtnesion](data);
+};
