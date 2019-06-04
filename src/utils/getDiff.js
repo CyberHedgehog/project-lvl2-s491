@@ -19,7 +19,7 @@ const getDiff = (firstPath, secondPath) => {
     }
     return { ...acc, [`  ${key}`]: firstValue };
   }, {});
-  return result;
+  return JSON.stringify(result, null, ' ');
 };
 
 export default getDiff;

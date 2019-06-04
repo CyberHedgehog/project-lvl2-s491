@@ -14,4 +14,4 @@ test:
 	npm test
 
 watch:
-	npm test --watch
+	npx jest --watch
