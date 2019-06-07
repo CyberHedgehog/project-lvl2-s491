@@ -1,25 +1,59 @@
 import _ from 'lodash';
 import parser from './parsers';
 
-const getDiff = (firstPath, secondPath) => {
-  const firstData = parser(firstPath);
-  const secondData = parser(secondPath);
+const parse = (firstData, secondData) => {
   const allKeys = _.uniq(Object.keys(firstData).concat(Object.keys(secondData)));
   const result = allKeys.reduce((acc, key) => {
-    const firstValue = firstData[key];
-    const secondValue = secondData[key];
     if (!_.has(firstData, key)) {
-      return { ...acc, [`+ ${key}`]: secondValue };
+      const newObj = {
+        name: `+ ${key}`,
+        value: secondData[key],
+      };
+      return [...acc, newObj];
     }
     if (!_.has(secondData, key)) {
-      return { ...acc, [`- ${key}`]: firstValue };
+      const newObj = {
+        name: `- ${key}`,
+        value: firstData[key],
+      };
+      return [...acc, newObj];
     }
-    if (firstValue !== secondValue) {
-      return { ...acc, [`+ ${key}`]: secondValue, [`- ${key}`]: firstValue };
+    if (firstData[key] instanceof Object && secondData[key] instanceof Object) {
+      return [...acc, { name: `  ${key}`, children: parse(firstData[key], secondData[key]) }];
     }
-    return { ...acc, [`  ${key}`]: firstValue };
+    if (firstData[key] !== secondData[key]) {
+      const before = {
+        name: `- ${key}`,
+        value: firstData[key],
+      };
+      const after = {
+        name: `+ ${key}`,
+        value: secondData[key],
+      };
+      return [...acc, before, after];
+    }
+    return [...acc, {
+      name: `  ${key}`,
+      value: firstData[key],
+    }];
+  }, []);
+  return result;
+};
+
+const render = (tree) => {
+  const result = tree.reduce((acc, node) => {
+    const { name, value, children } = node;
+    if (!children) {
+      return { ...acc, [name]: value };
+    }
+    return { ...acc, [name]: render(children) };
   }, {});
-  return JSON.stringify(result, null, ' ');
+  return result;
+};
+
+const getDiff = (firstPath, secondPath) => {
+  const ast = parse(parser(firstPath), parser(secondPath));
+  return render(ast);
 };
 
 export default getDiff;
