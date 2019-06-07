@@ -30,7 +30,7 @@ const parse = (firstData, secondData) => {
         name: `+ ${key}`,
         value: secondData[key],
       };
-      return [...acc, before, after];
+      return [...acc, after, before];
     }
     return [...acc, {
       name: `  ${key}`,
@@ -53,7 +53,7 @@ const render = (tree) => {
 
 const getDiff = (firstPath, secondPath) => {
   const ast = parse(parser(firstPath), parser(secondPath));
-  return render(ast);
+  return JSON.stringify(render(ast), null, ' ');
 };
 
 export default getDiff;
