@@ -16,4 +16,6 @@ Type `gendiff <path 1> <path 2>`
 [![asciicast](https://asciinema.org/a/bV49hX3cla5bhmywOoh0xIw0d.svg)](https://asciinema.org/a/bV49hX3cla5bhmywOoh0xIw0d)  
 ### comparing INI    
 Type `gendiff <path 1> <path 2>`    
-[![asciicast](https://asciinema.org/a/A6nkUm4997bCOcMDN3HDoycPb.svg)](https://asciinema.org/a/A6nkUm4997bCOcMDN3HDoycPb)
+[![asciicast](https://asciinema.org/a/A6nkUm4997bCOcMDN3HDoycPb.svg)](https://asciinema.org/a/A6nkUm4997bCOcMDN3HDoycPb)  
+### recursive comaping    
+[![asciicast](https://asciinema.org/a/ADbjal6YD1BkaPUAlAyWsxVnv.svg)](https://asciinema.org/a/ADbjal6YD1BkaPUAlAyWsxVnv)
