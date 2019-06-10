@@ -8,9 +8,10 @@ test('Empty JSON', () => {
   expect(getDiff('__tests__/__fixtures__/empty.json', '__tests__/__fixtures__/empty2.json')).toEqual('{}');
 });
 
-test('JSON test', () => {
-  const diff = getDiff('__tests__/__fixtures__/jsonBefore.json', '__tests__/__fixtures__/jsonAfter.json');
-  expect(diff).toEqual(resultData);
+test('To JSON test', () => {
+  const diff = getDiff('__tests__/__fixtures__/jsonBefore.json', '__tests__/__fixtures__/jsonAfter.json', 'json');
+  const result = parsers('__tests__/__fixtures__/result.json');
+  expect(diff).toEqual(result);
 });
 
 test('Yaml test', () => {

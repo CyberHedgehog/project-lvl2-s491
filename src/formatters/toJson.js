@@ -16,6 +16,5 @@ const formatter = (tree) => {
   return result;
 };
 
-const render = data => JSON.stringify(formatter(data), null, ' ');
-
+const render = data => formatter(data);
 export default render;

@@ -21,5 +21,8 @@ Type `gendiff <path 1> <path 2>`
 [![asciicast](https://asciinema.org/a/ADbjal6YD1BkaPUAlAyWsxVnv.svg)](https://asciinema.org/a/ADbjal6YD1BkaPUAlAyWsxVnv)    
 ### output format  
 Type `gendiff -f [format] <path 1> <path 2>` to choose output format  
-[![asciicast](https://asciinema.org/a/kQj760JMNzZrdkJ6Zp8cu7tCV.svg)](https://asciinema.org/a/kQj760JMNzZrdkJ6Zp8cu7tCV)
+[![asciicast](https://asciinema.org/a/kQj760JMNzZrdkJ6Zp8cu7tCV.svg)](https://asciinema.org/a/kQj760JMNzZrdkJ6Zp8cu7tCV)    
+### output to JSON
+Type `gendiff -f json <path 1> <path 2>` to output to JSON    
+[![asciicast](https://asciinema.org/a/ndtgmgeVMVXX4oKENwe80vSxq.svg)](https://asciinema.org/a/ndtgmgeVMVXX4oKENwe80vSxq)  
 
