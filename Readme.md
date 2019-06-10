@@ -18,4 +18,8 @@ Type `gendiff <path 1> <path 2>`
 Type `gendiff <path 1> <path 2>`    
 [![asciicast](https://asciinema.org/a/A6nkUm4997bCOcMDN3HDoycPb.svg)](https://asciinema.org/a/A6nkUm4997bCOcMDN3HDoycPb)  
 ### recursive comaping    
-[![asciicast](https://asciinema.org/a/ADbjal6YD1BkaPUAlAyWsxVnv.svg)](https://asciinema.org/a/ADbjal6YD1BkaPUAlAyWsxVnv)
+[![asciicast](https://asciinema.org/a/ADbjal6YD1BkaPUAlAyWsxVnv.svg)](https://asciinema.org/a/ADbjal6YD1BkaPUAlAyWsxVnv)    
+### output format  
+Type `gendiff -f [format] <path 1> <path 2>` to choose output format  
+[![asciicast](https://asciinema.org/a/kQj760JMNzZrdkJ6Zp8cu7tCV.svg)](https://asciinema.org/a/kQj760JMNzZrdkJ6Zp8cu7tCV)
+
