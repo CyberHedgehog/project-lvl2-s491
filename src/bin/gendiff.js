@@ -11,12 +11,12 @@ program
 
 program.parse(process.argv);
 const [path1, path2] = program.args;
-
+const { format } = program;
 const run = () => {
   if (!path1 || !path2) {
     return 'No paths';
   }
-  return getDiff(path1, path2);
+  return getDiff(path1, path2, format);
 };
 
 const result = run();

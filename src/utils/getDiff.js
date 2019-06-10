@@ -43,10 +43,14 @@ const parse = (firstData, secondData) => {
   return result;
 };
 
-const getDiff = (firstPath, secondPath) => {
+const render = {
+  plain: renderToPlain,
+  json: renderToJson,
+};
+
+const getDiff = (firstPath, secondPath, format = 'json') => {
   const ast = parse(parser(firstPath), parser(secondPath));
-  console.log(renderToPlain(ast));
-  return JSON.stringify(renderToJson(ast), null, ' ');
+  return render[format](ast);
 };
 
 export default getDiff;

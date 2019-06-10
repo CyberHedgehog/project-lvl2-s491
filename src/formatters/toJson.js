@@ -5,15 +5,17 @@ const builder = {
   added: node => ({ [`+ ${node.name}`]: node.value }),
 };
 
-const render = (tree) => {
+const formatter = (tree) => {
   const result = tree.reduce((acc, node) => {
     const { state, name, children } = node;
     if (!children) {
       return { ...acc, ...builder[state](node) };
     }
-    return { ...acc, [`  ${name}`]: render(children) };
+    return { ...acc, [`  ${name}`]: formatter(children) };
   }, {});
   return result;
 };
+
+const render = data => JSON.stringify(formatter(data), null, ' ');
 
 export default render;

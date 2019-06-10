@@ -1,3 +1,4 @@
+import fs from 'fs';
 import getDiff from '../src/utils/getDiff';
 import parsers from '../src/utils/parsers';
 
@@ -20,4 +21,10 @@ test('Yaml test', () => {
 test('Ini test', () => {
   const diff = getDiff('__tests__/__fixtures__/iniBefore.ini', '__tests__/__fixtures__/iniAfter.ini');
   expect(diff).toEqual(resultData);
+});
+
+test('Plain test', () => {
+  const plainResult = fs.readFileSync('__tests__/__fixtures__/plainResult', 'utf8');
+  const diff = getDiff('__tests__/__fixtures__/plainBefore.json', '__tests__/__fixtures__/plainAfter.json', 'plain');
+  expect(diff).toBe(plainResult);
 });
