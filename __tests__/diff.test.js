@@ -1,31 +1,42 @@
 import fs from 'fs';
-import getDiff from '../src/utils/getDiff';
-import parsers from '../src/utils/parsers';
+import path from 'path';
+import getDiff from '../src/index';
 
-const resultData = JSON.stringify(parsers('__tests__/__fixtures__/result.json'), null, ' ');
+const fixtures = '__tests__/__fixtures__/';
+const resultData = JSON.parse(fs.readFileSync(path.join(fixtures, 'result.json'), 'utf8'));
 
 test('Empty JSON', () => {
-  expect(getDiff('__tests__/__fixtures__/empty.json', '__tests__/__fixtures__/empty2.json')).toEqual('{}');
+  const before = path.join(fixtures, 'empty.json');
+  const after = path.join(fixtures, 'empty2.json');
+  expect(getDiff(before, after)).toEqual('{}');
 });
 
 test('To JSON test', () => {
-  const diff = getDiff('__tests__/__fixtures__/jsonBefore.json', '__tests__/__fixtures__/jsonAfter.json', 'json');
-  const result = parsers('__tests__/__fixtures__/result.json');
+  const before = path.join(fixtures, 'before.json');
+  const after = path.join(fixtures, 'after.json');
+  const diff = getDiff(before, after, 'json');
+  const result = resultData;
   expect(diff).toEqual(result);
 });
 
 test('Yaml test', () => {
-  const diff = getDiff('__tests__/__fixtures__/ymlBefore.yml', '__tests__/__fixtures__/ymlAfter.yml');
+  const before = path.join(fixtures, 'ymlBefore.yml');
+  const after = path.join(fixtures, 'ymlAfter.yml');
+  const diff = getDiff(before, after, 'json');
   expect(diff).toEqual(resultData);
 });
 
 test('Ini test', () => {
-  const diff = getDiff('__tests__/__fixtures__/iniBefore.ini', '__tests__/__fixtures__/iniAfter.ini');
+  const before = path.join(fixtures, 'iniBefore.ini');
+  const after = path.join(fixtures, 'iniAfter.ini');
+  const diff = getDiff(before, after, 'json');
   expect(diff).toEqual(resultData);
 });
 
 test('Plain test', () => {
-  const plainResult = fs.readFileSync('__tests__/__fixtures__/plainResult', 'utf8');
-  const diff = getDiff('__tests__/__fixtures__/plainBefore.json', '__tests__/__fixtures__/plainAfter.json', 'plain');
+  const plainResult = fs.readFileSync(path.join(fixtures, 'plainResult'), 'utf8');
+  const before = path.join(fixtures, 'plainBefore.json');
+  const after = path.join(fixtures, 'plainAfter.json');
+  const diff = getDiff(before, after, 'plain');
   expect(diff).toBe(plainResult);
 });
