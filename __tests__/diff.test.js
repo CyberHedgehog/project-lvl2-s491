@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import getDiff from '../src/index';
+import getDiff from '../src';
 
 const fixtures = '__tests__/__fixtures__/';
 const resultData = JSON.parse(fs.readFileSync(path.join(fixtures, 'result.json'), 'utf8'));
