@@ -8,14 +8,14 @@ const resultData = JSON.parse(fs.readFileSync(path.join(fixtures, 'result.json')
 test('Empty JSON', () => {
   const before = path.join(fixtures, 'empty.json');
   const after = path.join(fixtures, 'empty2.json');
-  expect(getDiff(before, after)).toEqual('{}');
+  expect(getDiff(before, after)).toEqual({});
 });
 
 test('To JSON test', () => {
   const before = path.join(fixtures, 'before.json');
   const after = path.join(fixtures, 'after.json');
   const diff = getDiff(before, after, 'json');
-  const result = resultData;
+  const result = JSON.parse(fs.readFileSync(path.join(fixtures, 'result.json'), 'utf8'));
   expect(diff).toEqual(result);
 });
 

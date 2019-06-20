@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import parser from './parsers';
-import renderToJson from '../formatters/toJson';
+import renderToJson from '../formatters/toJSON';
+import defaultRender from '../formatters/toDefault';
 import renderToPlain from '../formatters/toPlain';
 
 const parse = (firstData, secondData) => {
@@ -46,7 +47,7 @@ const parse = (firstData, secondData) => {
 const render = {
   plain: renderToPlain,
   json: renderToJson,
-  default: tree => JSON.stringify(renderToJson(tree), null, ' '),
+  default: tree => defaultRender(tree),
 };
 
 const getDiff = (firstPath, secondPath, format = 'default') => {
