@@ -3,7 +3,6 @@ import path from 'path';
 import getDiff from '../src';
 
 const fixtures = '__tests__/__fixtures__/';
-const resultData = JSON.parse(fs.readFileSync(path.join(fixtures, 'result.json'), 'utf8'));
 
 test('Empty JSON', () => {
   const before = path.join(fixtures, 'empty.json');
@@ -19,20 +18,6 @@ test('To JSON test', () => {
   expect(diff).toEqual(result);
 });
 
-test('Yaml test', () => {
-  const before = path.join(fixtures, 'ymlBefore.yml');
-  const after = path.join(fixtures, 'ymlAfter.yml');
-  const diff = getDiff(before, after, 'json');
-  expect(diff).toEqual(resultData);
-});
-
-test('Ini test', () => {
-  const before = path.join(fixtures, 'iniBefore.ini');
-  const after = path.join(fixtures, 'iniAfter.ini');
-  const diff = getDiff(before, after, 'json');
-  expect(diff).toEqual(resultData);
-});
-
 test('Plain test', () => {
   const plainResult = fs.readFileSync(path.join(fixtures, 'plainResult'), 'utf8');
   const before = path.join(fixtures, 'plainBefore.json');
@@ -40,3 +25,18 @@ test('Plain test', () => {
   const diff = getDiff(before, after, 'plain');
   expect(diff).toBe(plainResult);
 });
+
+test.each([
+  ['before.json', 'after.json'],
+  ['ymlBefore.yml', 'iniAfter.ini'],
+  ['iniBefore.ini', 'iniAfter.ini'],
+])(
+  'Files test',
+  (before, after) => {
+    const beforeFile = path.join(fixtures, before);
+    const afterFile = path.join(fixtures, after);
+    const expectedFile = path.join(fixtures, 'result.json');
+    const expexted = JSON.parse(fs.readFileSync(expectedFile, 'utf8'));
+    expect(getDiff(beforeFile, afterFile, 'default')).toEqual(expexted);
+  },
+);
