@@ -7,7 +7,7 @@ const fixtures = '__tests__/__fixtures__/';
 test('Empty JSON', () => {
   const before = path.join(fixtures, 'empty.json');
   const after = path.join(fixtures, 'empty2.json');
-  expect(getDiff(before, after)).toEqual({});
+  expect(getDiff(before, after)).toEqual('{}');
 });
 
 test('To JSON test', () => {

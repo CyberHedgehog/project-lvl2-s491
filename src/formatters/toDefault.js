@@ -1,18 +1,24 @@
+import _ from 'lodash';
+
 const builder = {
-  unchanged: node => ({ [`  ${node.name}`]: node.value }),
-  changed: node => ({ [`+ ${node.name}`]: node.changedTo, [`- ${node.name}`]: node.changedFrom }),
-  removed: node => ({ [`- ${node.name}`]: node.value }),
-  added: node => ({ [`+ ${node.name}`]: node.value }),
+  unchanged: node => (`  ${node.name}: ${node.value }`),
+  changed: node => (`+ ${node.name}: ${node.changedTo}\n    - ${node.name}: ${node.changedFrom }`),
+  removed: node => (`- ${node.name}: ${node.value }`),
+  added: node => (`+ ${node.name}: ${node.value }`),
 };
 
 const formatter = (tree) => {
-  const result = tree.reduce((acc, node) => {
+  const arr = tree.reduce((acc, node) => {
     const { state, name, children } = node;
     if (!children) {
-      return { ...acc, ...builder[state](node) };
+      return [...acc,`    ${builder[state](node)}`];
     }
-    return { ...acc, [`  ${name}`]: formatter(children) };
-  }, {});
+    const chld = formatter(children);
+    console.log(chld);
+    return [...acc, `  ${name}: ${chld}`];
+  }, []);
+  const result = ['{', ...arr, '  }'].join('\n');
+  // console.log(result);
   return result;
 };
 
