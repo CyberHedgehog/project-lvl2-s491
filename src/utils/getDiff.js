@@ -47,7 +47,7 @@ const parse = (firstData, secondData) => {
 const render = {
   plain: renderToPlain,
   json: renderToJson,
-  default: tree => defaultRender(tree),
+  default: defaultRender,
 };
 
 const getDiff = (firstPath, secondPath, format = 'default') => {

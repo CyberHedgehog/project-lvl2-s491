@@ -35,8 +35,8 @@ test.each([
   (before, after) => {
     const beforeFile = path.join(fixtures, before);
     const afterFile = path.join(fixtures, after);
-    const expectedFile = path.join(fixtures, 'result.json');
-    const expexted = JSON.parse(fs.readFileSync(expectedFile, 'utf8'));
+    const expectedFile = path.join(fixtures, 'result');
+    const expexted = fs.readFileSync(expectedFile, 'utf8');
     expect(getDiff(beforeFile, afterFile, 'default')).toEqual(expexted);
   },
 );
