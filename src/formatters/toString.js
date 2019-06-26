@@ -10,23 +10,30 @@ const valueToString = (value, tab) => {
 
 const builder = {
   unchanged: (node, tab) => (`${tab}  ${node.name}: ${valueToString(node.value, tab)}`),
-  changed: (node, tab) => (`${tab}+ ${node.name}: ${valueToString(node.changedTo, tab)}\n${tab}- ${node.name}: ${valueToString(node.changedFrom)}`),
+  changed: (node, tab) => (`${tab}+ ${node.name}: ${valueToString(node.changedTo, tab)}\n${tab}- ${node.name}: ${valueToString(node.changedFrom, tab)}`),
   removed: (node, tab) => (`${tab}- ${node.name}: ${valueToString(node.value, tab)}`),
   added: (node, tab) => (`${tab}+ ${node.name}: ${valueToString(node.value, tab)}`),
 };
 
-const formatter = (tree, depth) => {
-  const tab = '  '.repeat(depth);
+const getTab = repeats => '  '.repeat(repeats);
+
+const formatter = (tree, tabCount) => {
+  if (tree.length === 0) {
+    return '{}';
+  }
+  const tab = getTab(tabCount);
+  const childrenTab = getTab(tabCount) + '  ';
+  const nonChildrenTab = getTab(tabCount + 1);
   const arr = tree.reduce((acc, node) => {
     const { state, children, name } = node;
     if (!children) {
-      return [...acc, builder[state](node, tab)];
+      return [...acc, builder[state](node, nonChildrenTab)];
     }
-    return [...acc, `${tab}  ${name}: ${formatter(children, depth + 1)}`];
+    return [...acc, `${childrenTab}  ${name}: ${formatter(children, tabCount + 2)}`];
   }, []);
-  const result = ['{', ...arr, '}'].join('\n');
+  const result = ['{', ...arr, `${tab}}`].join('\n');
   return result;
 };
 
-const render = data => formatter(data, 1);
+const render = data => formatter(data, 0);
 export default render;

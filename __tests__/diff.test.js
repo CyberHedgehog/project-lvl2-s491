@@ -37,6 +37,6 @@ test.each([
     const afterFile = path.join(fixtures, after);
     const expectedFile = path.join(fixtures, 'result');
     const expexted = fs.readFileSync(expectedFile, 'utf8');
-    expect(getDiff(beforeFile, afterFile, 'default')).toEqual(expexted);
+    expect(getDiff(beforeFile, afterFile, 'string')).toEqual(expexted);
   },
 );

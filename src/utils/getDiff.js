@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import parser from './parsers';
 import renderToJson from '../formatters/toJSON';
-import defaultRender from '../formatters/toDefault';
+import renderToString from '../formatters/toString';
 import renderToPlain from '../formatters/toPlain';
 
 const parse = (firstData, secondData) => {
@@ -47,10 +47,10 @@ const parse = (firstData, secondData) => {
 const render = {
   plain: renderToPlain,
   json: renderToJson,
-  default: defaultRender,
+  string: renderToString,
 };
 
-const getDiff = (firstPath, secondPath, format = 'default') => {
+const getDiff = (firstPath, secondPath, format = 'string') => {
   const ast = parse(parser(firstPath), parser(secondPath));
   return render[format](ast);
 };
