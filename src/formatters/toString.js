@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 const valueToString = (value, tab) => {
   if (value instanceof Object) {
     const [key] = Object.keys(value);
@@ -22,7 +20,7 @@ const formatter = (tree, tabCount) => {
     return '{}';
   }
   const tab = getTab(tabCount);
-  const childrenTab = getTab(tabCount) + '  ';
+  const childrenTab = `${getTab(tabCount)}  `;
   const nonChildrenTab = getTab(tabCount + 1);
   const arr = tree.reduce((acc, node) => {
     const { state, children, name } = node;
