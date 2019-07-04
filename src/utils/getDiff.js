@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import parser from './parsers';
 import renderToJson from '../formatters/toJSON';
-import renderToString from '../formatters/toString';
+import renderToObjectView from '../formatters/toObjectView';
 import renderToPlain from '../formatters/toPlain';
 
 const parse = (firstData, secondData) => {
@@ -47,10 +47,10 @@ const parse = (firstData, secondData) => {
 const render = {
   plain: renderToPlain,
   json: renderToJson,
-  string: renderToString,
+  objectview: renderToObjectView,
 };
 
-const getDiff = (firstPath, secondPath, format = 'string') => {
+const getDiff = (firstPath, secondPath, format = 'objectview') => {
   const ast = parse(parser(firstPath), parser(secondPath));
   return render[format](ast);
 };

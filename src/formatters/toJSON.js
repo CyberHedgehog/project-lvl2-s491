@@ -11,12 +11,12 @@ const formatter = (tree) => {
   const result = tree.reduce((acc, node) => {
     const { state, name, children } = node;
     if (!children) {
-      return { ...acc, ...builder[state](node) };
+      return [...acc, { ...builder[state](node) }];
     }
-    return { ...acc, [`  ${name}`]: formatter(children) };
-  }, {});
+    return [...acc, { [`  ${name}`]: formatter(children) }];
+  }, []);
   return _(result).toJSON();
 };
 
-const render = data => formatter(data);
+const render = data => JSON.stringify(formatter(data));
 export default render;
