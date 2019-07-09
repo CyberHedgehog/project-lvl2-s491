@@ -1,3 +1,3 @@
-import diff from './utils/getDiff';
+import diff from './getDiff';
 
 export default diff;

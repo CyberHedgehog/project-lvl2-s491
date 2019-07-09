@@ -17,9 +17,9 @@ const builder = {
 
 const render = (tree, parents = []) => {
   const result = tree.reduce((acc, node) => {
-    const { name, children, state } = node;
+    const { name, children, type } = node;
     if (!children) {
-      return [...acc, builder[state](node, [...parents, name].join('.'))];
+      return [...acc, builder[type](node, [...parents, name].join('.'))];
     }
     return [...acc, render(node.children, [...parents, name])];
   }, []);

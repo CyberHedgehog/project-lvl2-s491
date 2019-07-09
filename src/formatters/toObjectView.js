@@ -1,5 +1,5 @@
 const valueToString = (value, tab) => {
-  if (value instanceof Object) {
+  if (value instanceof Object && !Array.isArray(value)) {
     const [key] = Object.keys(value);
     return `{\n${tab}    ${key}: ${value[key]}\n  ${tab}}`;
   }
@@ -15,7 +15,7 @@ const builder = {
 
 const getTab = repeats => '  '.repeat(repeats);
 
-const formatter = (tree, tabCount) => {
+const build = (tree, tabCount) => {
   if (tree.length === 0) {
     return '{}';
   }
@@ -23,15 +23,15 @@ const formatter = (tree, tabCount) => {
   const childrenTab = `${getTab(tabCount)}  `;
   const nonChildrenTab = getTab(tabCount + 1);
   const arr = tree.reduce((acc, node) => {
-    const { state, children, name } = node;
+    const { type, children, name } = node;
     if (!children) {
-      return [...acc, builder[state](node, nonChildrenTab)];
+      return [...acc, builder[type](node, nonChildrenTab)];
     }
-    return [...acc, `${childrenTab}  ${name}: ${formatter(children, tabCount + 2)}`];
+    return [...acc, `${childrenTab}  ${name}: ${build(children, tabCount + 2)}`];
   }, []);
   const result = ['{', ...arr, `${tab}}`].join('\n');
   return result;
 };
 
-const render = data => formatter(data, 0);
+const render = data => build(data, 0);
 export default render;

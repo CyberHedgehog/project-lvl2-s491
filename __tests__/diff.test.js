@@ -28,15 +28,15 @@ test('Plain test', () => {
 
 test.each([
   ['before.json', 'after.json'],
-  ['ymlBefore.yml', 'iniAfter.ini'],
+  ['ymlBefore.yml', 'ymlAfter.yml'],
   ['iniBefore.ini', 'iniAfter.ini'],
 ])(
   'Files test',
   (before, after) => {
     const firstPath = path.join(fixtures, before);
     const secondPath = path.join(fixtures, after);
-    const expectedFile = path.join(fixtures, 'result');
-    const expected = fs.readFileSync(expectedFile, 'utf8');
+    const expectedFilePath = path.join(fixtures, 'result');
+    const expected = fs.readFileSync(expectedFilePath, 'utf8');
     expect(getDiff(firstPath, secondPath, 'objectview')).toEqual(expected);
   },
 );
