@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import program from 'commander';
-import getDiff from '../utils/getDiff';
+import getDiff from '../getDiff';
 
 program
   .description('Compares two configuration files and shows a difference.')

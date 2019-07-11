@@ -25,7 +25,7 @@ const getAst = (firstData, secondData) => {
       return [...acc, newObj];
     }
     if (firstData[key] instanceof Object && secondData[key] instanceof Object) {
-      return [...acc, { type: 'has children', name: key, children: getAst(firstData[key], secondData[key]) }];
+      return [...acc, { type: 'parent', name: key, children: getAst(firstData[key], secondData[key]) }];
     }
     if (firstData[key] !== secondData[key]) {
       const newObj = {
