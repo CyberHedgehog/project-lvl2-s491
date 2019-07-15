@@ -16,7 +16,7 @@ const builder = {
 };
 
 const render = (tree, parents = []) => {
-  const result = tree.reduce((acc, node) => {
+  const result = tree.map((node) => {
     const {
       name,
       children,
@@ -24,10 +24,10 @@ const render = (tree, parents = []) => {
       hasChildren,
     } = node;
     if (hasChildren) {
-      return [...acc, render(children, [...parents, name])];
+      return render(children, [...parents, name]);
     }
-    return [...acc, builder[type](node, [...parents, name].join('.'))];
-  }, []);
+    return builder[type](node, [...parents, name].join('.'));
+  });
   return result.filter(v => v).join('\n');
 };
 

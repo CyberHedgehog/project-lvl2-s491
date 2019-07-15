@@ -22,18 +22,6 @@ const build = (tree, depth) => {
   const typeTabsCount = depth - 1;
   const tab = depth > 1 ? getTab(depth + typeTabsCount) : getTab(depth);
   const closingTab = depth > 1 ? getTab(depth + typeTabsCount - 1) : '';
-  // const resultTree = tree.reduce((acc, node) => {
-  //   const {
-  //     type,
-  //     children,
-  //     name,
-  //     hasChildren,
-  //   } = node;
-  //   if (hasChildren) {
-  //     return [...acc, `${tab}  ${name}: ${build(children, depth + 1)}`];
-  //   }
-  //   return [...acc, builder[type](node, `${tab}`)];
-  // }, []);
   const resultTree = tree.map((node) => {
     const {
       type,

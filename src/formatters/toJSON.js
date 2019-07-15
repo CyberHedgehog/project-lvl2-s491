@@ -1,4 +1,2 @@
-import _ from 'lodash';
-
-const render = data => JSON.stringify(_(data).toJSON());
+const render = data => JSON.stringify(data);
 export default render;
