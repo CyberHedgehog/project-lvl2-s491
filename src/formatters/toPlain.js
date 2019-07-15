@@ -9,7 +9,7 @@ const getValue = (value) => {
 };
 
 const builder = {
-  changed: (node, name) => `Property '${name}' was updated. From ${getValue(node.changedFrom)} to ${getValue(node.changedTo)}`,
+  changed: (node, name) => `Property '${name}' was updated. From ${getValue(node.oldValue)} to ${getValue(node.newValue)}`,
   removed: (node, name) => `Property '${name}' was removed`,
   added: (node, name) => `Property '${name}' was added with value: ${getValue(node.value)}`,
   unchanged: () => {},
@@ -17,11 +17,16 @@ const builder = {
 
 const render = (tree, parents = []) => {
   const result = tree.reduce((acc, node) => {
-    const { name, children, type } = node;
-    if (!children) {
-      return [...acc, builder[type](node, [...parents, name].join('.'))];
+    const {
+      name,
+      children,
+      type,
+      hasChildren,
+    } = node;
+    if (hasChildren) {
+      return [...acc, render(children, [...parents, name])];
     }
-    return [...acc, render(node.children, [...parents, name])];
+    return [...acc, builder[type](node, [...parents, name].join('.'))];
   }, []);
   return result.filter(v => v).join('\n');
 };
