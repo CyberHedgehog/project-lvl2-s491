@@ -11,7 +11,6 @@ const getAst = (firstData, secondData) => {
     if (!_.has(firstData, key)) {
       const newObj = {
         type: 'added',
-        hasChildren: false,
         name: key,
         value: secondData[key],
       };
@@ -20,7 +19,6 @@ const getAst = (firstData, secondData) => {
     if (!_.has(secondData, key)) {
       const newObj = {
         type: 'removed',
-        hasChildren: false,
         name: key,
         value: firstData[key],
       };
@@ -28,8 +26,7 @@ const getAst = (firstData, secondData) => {
     }
     if (firstData[key] instanceof Object && secondData[key] instanceof Object) {
       return [...acc, {
-        type: 'unchanged',
-        hasChildren: true,
+        type: 'compound',
         name: key,
         children: getAst(firstData[key], secondData[key]),
       }];
@@ -37,7 +34,6 @@ const getAst = (firstData, secondData) => {
     if (firstData[key] !== secondData[key]) {
       const newObj = {
         type: 'changed',
-        hasChildren: false,
         name: key,
         oldValue: firstData[key],
         newValue: secondData[key],
@@ -46,7 +42,6 @@ const getAst = (firstData, secondData) => {
     }
     return [...acc, {
       type: 'unchanged',
-      hasChildren: false,
       name: key,
       value: firstData[key],
     }];

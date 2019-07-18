@@ -9,24 +9,17 @@ const getValue = (value) => {
 };
 
 const builder = {
-  changed: (node, name) => `Property '${name}' was updated. From ${getValue(node.oldValue)} to ${getValue(node.newValue)}`,
-  removed: (node, name) => `Property '${name}' was removed`,
-  added: (node, name) => `Property '${name}' was added with value: ${getValue(node.value)}`,
+  changed: (node, fullName) => `Property '${fullName}' was updated. From ${getValue(node.oldValue)} to ${getValue(node.newValue)}`,
+  removed: (node, fullName) => `Property '${fullName}' was removed`,
+  added: (node, fullName) => `Property '${fullName}' was added with value: ${getValue(node.value)}`,
   unchanged: () => {},
+  compound: (node, fullName, fn, parents) => fn(node.children, [...parents, node.name]),
 };
 
 const render = (tree, parents = []) => {
   const result = tree.map((node) => {
-    const {
-      name,
-      children,
-      type,
-      hasChildren,
-    } = node;
-    if (hasChildren) {
-      return render(children, [...parents, name]);
-    }
-    return builder[type](node, [...parents, name].join('.'));
+    const { name, type } = node;
+    return builder[type](node, [...parents, name].join('.'), render, parents);
   });
   return result.filter(v => v).join('\n');
 };
