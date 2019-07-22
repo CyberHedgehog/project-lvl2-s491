@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 const valueToString = (value, tab) => {
   if (!(value instanceof Object) || Array.isArray(value)) {
     return `${value}`;
@@ -8,7 +10,10 @@ const valueToString = (value, tab) => {
 
 const builder = {
   unchanged: (node, tab) => (`${tab}  ${node.name}: ${valueToString(node.value, tab)}`),
-  changed: (node, tab) => (`${tab}+ ${node.name}: ${valueToString(node.newValue, tab)}\n${tab}- ${node.name}: ${valueToString(node.oldValue, tab)}`),
+  changed: (node, tab) => [
+    `${tab}+ ${node.name}: ${valueToString(node.newValue, tab)}`,
+    `${tab}- ${node.name}: ${valueToString(node.oldValue, tab)}`,
+  ],
   removed: (node, tab) => (`${tab}- ${node.name}: ${valueToString(node.value, tab)}`),
   added: (node, tab) => (`${tab}+ ${node.name}: ${valueToString(node.value, tab)}`),
   compound: (node, tab, fn, depth) => (`${tab}  ${node.name}: ${fn(node.children, depth + 1)}`),
@@ -23,8 +28,9 @@ const build = (tree, depth) => {
   const typeTabsCount = depth - 1;
   const tab = depth > 1 ? getTab(depth + typeTabsCount) : getTab(depth);
   const closingTab = depth > 1 ? getTab(depth + typeTabsCount - 1) : '';
-  const resultTree = tree.map(node => builder[node.type](node, tab, build, depth));
-  const result = ['{', ...resultTree, `${closingTab}}`].join('\n');
+  const formattedTree = tree.map(node => builder[node.type](node, tab, build, depth));
+  const flatTree = _.flatten(formattedTree);
+  const result = ['{', ...flatTree, `${closingTab}}`].join('\n');
   return result;
 };
 
