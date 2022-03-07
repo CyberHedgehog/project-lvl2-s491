@@ -1,5 +1,5 @@
 # Hexlet project lvl 2
-## gendiff
+## gendir
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/94e9f11bdc479143a70d/maintainability)](https://codeclimate.com/github/CyberHedgehog/project-lvl2-s491/maintainability)
 [![Build Status](https://travis-ci.org/CyberHedgehog/project-lvl2-s491.svg?branch=master)](https://travis-ci.org/CyberHedgehog/project-lvl2-s491)
